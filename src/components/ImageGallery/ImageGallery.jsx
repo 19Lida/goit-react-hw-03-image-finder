@@ -6,7 +6,7 @@ export class ImageGallery extends Component {
   render() {
     const { images, onImageClick } = this.props;
     return (
-      <ul className={styles.imageGallery}>
+      <ul className={styles.ImageGallery}>
         {images.map(({ id, webformatURL, largeImageURL }) => {
           return (
             <ImageGalleryItem

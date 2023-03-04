@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { toast } from 'react-toastify';
-
+import { BiSearch } from 'react-icons/bi';
 import PropTypes from 'prop-types';
 
 import styles from './Searchbar.module.css';
@@ -21,23 +21,24 @@ export class Searchbar extends Component {
     this.setState({ query: '' });
   };
   render() {
-    const { handleInput, handleSubmit } = this;
+    // const { handleInput, handleSubmit } = this;
     const { query } = this.state;
     return (
-      <header className={styles.searchbar}>
-        <form onSubmit={handleSubmit} className={styles.searchForm}>
-          <button type="submit" className={styles.searchButton}>
-            <span className={styles.searchFormButtonLabel}>Search</span>
+      <header className={styles.Searchbar}>
+        <form onSubmit={this.handleSubmit} className={styles.SearchForm}>
+          <button type="submit" className={styles.SearchButton}>
+            <BiSearch style={{ width: 25, height: 25 }} />
+            <span className={styles.SearchFormButtonLabel}></span>
           </button>
 
           <input
-            className={styles.searchInput}
+            className={styles.SearchFormInput}
             type="text"
             name="query"
             value={query}
-            onChange={handleInput}
-            autocomplete="off"
-            autofocus
+            onChange={this.handleInput}
+            autoComplete="off"
+            autoFocus
             placeholder="Search images and photos"
           />
         </form>

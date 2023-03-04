@@ -7,7 +7,7 @@ import { Modal } from './Modal/Modal';
 import { Button } from './Button/Button';
 export class App extends Component {
   state = {
-    // query: '',
+    query: '',
     images: [],
     page: 1,
     error: null,
@@ -40,6 +40,7 @@ export class App extends Component {
     this.setState({ query: data, images: [], page: 1 });
   };
   onImageClick = data => {
+    console.log(data);
     this.setState({
       largeImageURL: data,
       showModal: true,
