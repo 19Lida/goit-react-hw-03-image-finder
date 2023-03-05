@@ -2,7 +2,6 @@ import { Component } from 'react';
 import { toast } from 'react-toastify';
 import { BiSearch } from 'react-icons/bi';
 import PropTypes from 'prop-types';
-
 import styles from './Searchbar.module.css';
 export class Searchbar extends Component {
   state = {
@@ -14,7 +13,7 @@ export class Searchbar extends Component {
   handleSubmit = e => {
     e.preventDefault();
     if (this.state.query.trim() === '') {
-      toast.info('Please enter a value to search!');
+      toast('Please enter a value to search!');
       return;
     }
     this.props.onSubmit(this.state.query);

@@ -8,7 +8,7 @@ export const ImageGalleryItem = ({ preview, fullSize, onImageClick }) => {
       }}
       className={styles.ImageGalleryItem}
     >
-      <img src={preview} className={styles.ImageGalleryImage} alt="" />
+      <img src={preview} className={styles.ImageGalleryItemImage} alt="" />
     </li>
   );
 };

@@ -1,10 +1,11 @@
 import { Component } from 'react';
-// import { Audio } from 'react-loader-spinner';
 import { searchPosts } from 'services/API';
 import { Searchbar } from './Searchbar/Searchbar';
 import { ImageGallery } from './ImageGallery/ImageGallery';
 import { Modal } from './Modal/Modal';
 import { Button } from './Button/Button';
+import { Loader } from './Loader/Loader';
+import styles from './App.module.css';
 export class App extends Component {
   state = {
     query: '',
@@ -37,6 +38,9 @@ export class App extends Component {
     }
   }
   onSubmitForm = data => {
+    if (data === this.state.query) {
+      return;
+    }
     this.setState({ query: data, images: [], page: 1 });
   };
   onImageClick = data => {
@@ -59,29 +63,19 @@ export class App extends Component {
     const { loading, images, largeImageURL, showModal } = this.state;
     // const { onSubmitForm, onImageClick, closeModal, loadMore } = this;
     return (
-      <>
+      <div className={styles.App}>
         <Searchbar onSubmit={this.onSubmitForm} />
         {images.length > 0 && (
           <ImageGallery images={images} onImageClick={this.onImageClick} />
         )}
         {images.length > 0 && !loading && <Button loadMore={this.loadMore} />}
-        {/* {loading && (
-          <Audio
-            height="80"
-            width="80"
-            radius="9"
-            color="green"
-            ariaLabel="loading"
-            wrapperStyle=""
-            wrapperClass=""
-          />
-        )} */}
+        {loading && <Loader />}
         {showModal && (
           <Modal close={this.closeModal}>
             <img src={largeImageURL} alt="" />
           </Modal>
         )}
-      </>
+      </div>
     );
   }
 }
