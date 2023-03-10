@@ -17,28 +17,29 @@ export class App extends Component {
     largeImageURL: '',
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     const { query, page } = this.state;
     if (prevState.query !== query || prevState.page !== page) {
-      this.fetchPosts();
-    }
-  }
-  async fetchPosts() {
-    try {
-      this.setState({ loading: true });
-      const { query, page } = this.state;
-      const data = await searchPosts(query, page);
-      if (!query.trim() || !data.length) {
+      // this.fetchPosts();
+
+      try {
+        this.setState({ loading: true });
+        // const { query, page } = this.state;
+        const data = await searchPosts(query, page);
+        if (!query.trim() || !data.hits.length) {
+          this.setState({ loading: false });
+          return alert(`No image with name ${query}`);
+        }
+        // this.setState(({ images }) => ({
+        //   images: [...images, ...data.hits],
+        // }));
+        this.setState({
+          images: [...this.state.images, ...data.hits],
+        });
+      } catch (error) {
+      } finally {
         this.setState({ loading: false });
-        return alert(`No image with name ${query}`);
       }
-      this.setState(({ images }) => ({
-        images: [...images, ...data.hits],
-      }));
-    } catch (error) {
-      // this.setState({ error: error.message });
-    } finally {
-      this.setState({ loading: false });
     }
   }
   onSubmitForm = data => {
