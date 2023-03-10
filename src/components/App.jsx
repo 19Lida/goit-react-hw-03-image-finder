@@ -28,11 +28,15 @@ export class App extends Component {
       this.setState({ loading: true });
       const { query, page } = this.state;
       const data = await searchPosts(query, page);
+      if (!query.trim() || !data.length) {
+        this.setState({ loading: false });
+        return alert(`No image with name ${query}`);
+      }
       this.setState(({ images }) => ({
         images: [...images, ...data.hits],
       }));
     } catch (error) {
-      this.setState({ error: error.message });
+      // this.setState({ error: error.message });
     } finally {
       this.setState({ loading: false });
     }
@@ -61,7 +65,6 @@ export class App extends Component {
   };
   render() {
     const { loading, images, largeImageURL, showModal } = this.state;
-    // const { onSubmitForm, onImageClick, closeModal, loadMore } = this;
     return (
       <div className={styles.App}>
         <Searchbar onSubmit={this.onSubmitForm} />
